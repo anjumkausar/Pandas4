@@ -1,0 +1,25 @@
+import pandas as pd
+
+def second_highest_salary(employee: pd.DataFrame) -> pd.DataFrame:
+    all_salaries = set()
+    for i in range(len(employee)):
+        salary = employee ['salary'][i]
+        all_salaries.add(salary)
+    result = []
+    for salary in all_salaries:
+        result.append(salary)
+    result.sort(reverse = True)
+    if len(result)<2:
+        return pd.DataFrame([None], columns = ['SecondHighestSalary'])
+    return pd.DataFrame([result[1]], columns = ['SecondHighestSalary'])
+
+ #Using Pandas
+     employee = employee.drop_duplicates(['salary'])
+    if len(employee) < 2:
+        return pd.DataFrame({'SecondHighestSalary' : [np.NaN]})
+    employee.sort_values(by=['salary'], ascending = False, inplace= True)
+    employee.drop('id', axis = 1, inplace= True)
+    employee.rename(columns = {'salary': 'SecondHighestSalary'}, inplace= True)
+    return employee.head(2).tail(1)
+    
+    
